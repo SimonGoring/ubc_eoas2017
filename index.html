@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Building a better clock</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/theme/sjg_custom.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -24,13 +24,394 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>Building a better clock</h1>
+					<h2>Cross-domain discovery to enhance our understanding of sedimentary processes</h2>
+					Simon Goring
+					<p>Twitter: @sjGoring; website: http://goring.org</p>
+					<p>GitHub: http://github.com/SimonGoring</p>
+				    
+				    <p style="font-size:0.9rem">University of Wisconsin - Madison</p>
+					<footer>
+						<img src="images/Packrat.svg" height=80px/>  
+						<img src="images/UW-Madison_logo.svg" height=80px/>  
+						<img src="images/logo_earthcube_full_horizontal.png" height=80px/>  
+						<img src="images/throughput.svg" height=80px>
+						<img src="images/nsf4.png" height=80px>
+					</footer>
+					<aside class="notes">
+					<p>The generation of high quality chronologies is a consistent challenge in the paleogeosciences.  Understanding paleoclimatic change, sediment budgets, glacial advances, volcanic processes, and biodiversity change through time all rely on high quality chronologies.  For each of these applications disciplinary groups within the geosciences have arisen, each with different data sharing & archiving practices, and each with different vocabularies.</p>
+
+					<p>The National Science Foundation in the United States has recognized that similar issues exist across the geosciences, and that technological advances in cyberinfrastructure and super computing can provide solutions to these problems.  EarthCube, one such initiative, has brought together geoscientists, data scientists and computer scientists to address such issues.  By addressing challenges at an institutional level through directed funding solicitations and at a scientific level through individual projects, EarthCube helps to overcome many of the barriers to interdisciplinary data science.</p>
+
+					<p>This presentation provides an overview of EarthCube, and also three specific use cases relevant to the geosciences, where EarthCube funded technology acts to minimize chronological uncertainty in the paleogeosciences, harvests "dark data" from the publication record, and a newly funded project that will link geochronological data, from lab to publication, to enable dynamic scientific reports that update as labs re-calibrate instrumentation, or new data becomes available.</p>
+
+					</aside>
+				</section>
+				<section id="acknow">
+					<h1 style="text-align:left">Acknowledgments</h1>
+					    <p style="text-align:left">
+					    	Jack Williams<sup>1</sup>; Doug Fils<sup>2</sup>; Eric C. Grimm<sup>3</sup>; Daisie Huang<sup>4</sup>; Stephen Kuehn<sup>5</sup>; Kerstin Lehnert<sup>6</sup>; <br>Nick McKay<sup>7</sup>; Amy Myrbo<sup>3</sup>; Anders Noren<sup>3</sup>; Steve Richard<sup>6</sup>
+					    </p>
+					    
+					    <p style="font-size:0.9rem;text-align:left">
+					    	<sup>1</sup>University of Wisconsin - Madison, <sup>2</sup>Ocean Leadership, <sup>3</sup>University of Minnesota, <sup>4</sup>Data Dryad, <sup>5</sup> Concord University, <br><sup>6</sup>Lamont Doherty Earth Observatory, <sup>7</sup>Northern Arizona University
+					    </p>
+					    <p style="text-align:left">
+					    	EarthCube Partners, LinkedEarth, LacCore, CDSCO
+					    </p>
+				</section>
+				<section id=problem-statement>
+					<section>
+						<h1>21<sup>st</sup> Century Geosciences</h1>
+						<h2>Where are we?</h2>
+					</section>
+					<section id="ten-questions">
+						<h2>Research Opportunities in the Earth Sciences</h2>
+						<a href=https://www.nap.edu/read/13236/chapter/1 style="">National Science Foundation, 2012. New Research Opportunities in the Earth Sciences</a><br>
+						<br>
+						<ol style="font-size:1.2rem" id="buttons">
+							<li>How did Earth and other planets form?</li>
+						    <li>What happened during Earth’s “dark age” (the first 500 million years)?</li>
+							<li>How did life begin?</li>
+							<li>How does Earth’s interior work, and how does it affect the surface?</li>
+							<li>Why does Earth have plate tectonics and continents?</li>
+							<li>How are Earth’s processes controlled by material properties?</li>
+							<li>What causes climate to change—and how much can it change?</li>
+							<li>How has life shaped Earth—and how has Earth shaped life?</li>
+							<li>Can earthquakes, volcanic eruptions, and their consequences be predicted?</li>
+							<li>How do fluid flow and transport affect the human environment?</li>
+						</ol>
+						<aside class="notes">The responses to each question highlight the need for collaboration across disciplines, for the continued support for basic, investigator-led research, and for improved data access and sharing.</aside>
+					</section>
+					<section id="motivations">
+						<h1 style="font-size:2.3em">Higher Motivations for Geoinformatics</h1>
+						<h2><a href=http://unesdoc.unesco.org/images/0013/001330/133021e.pdf>UNESCO, Science in the Information Society, 2003</a></h2>
+						<ol style="font-size:1.4em">
+							<li>Narrow the digital divide accentuating disparities in development</li>
+							<li>Guarantee the free flow of, and equitable access to, data, information, best practices and knowledge</li>
+							<li>Build international consensus on newly required norms and principles</li>
+						</ol>
+					</section>
+				</section>
+				<section id=complex-problems>
+					<section>
+						<h1>Paleoecology & Quaternary Climate Change</h1>
+						<div><img src="images/Packrat.svg">
+						<div>The Neotoma Paleoecological Database<br>
+						<a href=http://neotomadb.org>http://neotomadb.org</a></div></div>
+					</section>
+					<section  data-background="#875E00">
+						<img src=images/palynology_explained.svg>	
+					</section>
+					<section data-background="#875E00" id="point-dataset">
+						<div style="position:relative;text-align: center;">
+							<img style="position:relative;top:50%;" src="images/map_background.svg"></object>
+							<h2 style="font-size:5rem;position:absolute;top:50%">That Point is Connected</h2>
+						</div>
+					</section>
+					<section>
+						<h2>Data is connected</h2>
+						<div>
+						<ul style="font-size:1.2rem" id="buttons">
+							<li>Climate data</li>
+							<li>Paleoclimate data</li>
+							<li>Sedimentary pollen</li>
+							<li>Soils data</li>
+							<li>Lake information</li>
+							<li>Forest cover data</li>
+							<li>Geochronological data</li>
+							<li>Lab standards & methods</li>
+							<li>Geochemical records</li>
+							<li>Physical samples</li>
+						</ul>
+					</div>
+					</section>
+					<section>
+						<div>
+							<a href=https://commons.wikimedia.org/wiki/File:Wicked_Witch_of_the_East.png>
+								<img style="position:relative;top:50%;"src=images/ww_east.png height=400px>
+							</a>
+							<h2>Complex Problems Bring New Challenges</h2>
+						</div>
+					</section>
+					<section data-background=#6D7973 id="circle">
+						<img src="images/problems_circle.svg" width=70%>
+
+							<aside class="notes">Problems like climate change have many dimensions, and just as many questions.</aside>
+						<h1 style="font-size:90%;color:#fff;">
+							Facets of Complex Problems
+						</h1>
+					</section>
+				</section>
+				<section id='case-studies'>
+		 			<section>
+		 				<div>
+		 				<ul id="buttons">
+		 					<li>What causes climate to change—and how much can it change?</li>
+							<li>How has life shaped Earth—and how has Earth shaped life?</li>
+						</ul>
+						<br>
+		 				<img src="images/friedlingstein.svg" style="width: 50%;">
+		 			</section>
+		 			<section id="paleon" data-background-image="images/pls_oak_map.svg" data-background-color="#B2B2A2">
+		 				<h1 style="opacity:1;color:#6D7973;text-shadow: 2px 2px 2px black;font-weight:bold">The Paleoecological Observation Network</h1>
+		 				<h2 style="text-shadow: 2px 2px 2px black;color:#6D7973;font-weight:bold">PalEON</h2>
+		 				<a href=></a>
+		 				<img src="images/nsf4.png" height=100>
+		 			</section>
+		 			<section opacity="0.25" id="fried-1">
+		 				<div class="container">
+							<div class="col">
+								<img src="images/friedlingstein.svg" style="width: 90%;">
+							</div>
+							<div class="col">
+								<img src="images/paleon_circle.svg" style="width: 90%;">
+							</div>
+						</div>
+						<aside class="notes">
+							Causes of Divergence might include Model assumptions, Driver datasets, Model components, Uncertainty
+				 		</aside>
+				 	</section>
+		 			<section opacity="0.25">
+		 				<img src="images/friedlingstein_pt2.svg" style="width: 40%;">
+		 			</section>
+		 			<section>
+		 				<h1>Public Land Surveys</h1>
+		 				<img src="images/surveyors_2.jpg" height=350>
+		 				<img src="images/field_notes.jpg" height=350>
+		 			</section>
+		 			<section id="g-etal">
+		 				<h1>Pre-Settlement Forests</h1>
+		 				<figure>
+		 					<img src="images/journal.pone.0151935.g004.PNG" height=400>
+		 					<figcaption>Goring et al., 2016. PLoS.</figcaption>
+		 				</figure>
+		 			</section>
+		 			<section id="map-element" data-background-image="images/neotomamap.svg" opacity="0.25">
+		 				<h1 style="font-weight:bold;text-shadow: 2px 2px 2px black;">Neotoma Paleoecological Database</h1>
+		 			</section>
+		 			<section data-background-color="#B2B2A2">
+		 				<img src="images/sed_core.jpg" height=300 style="padding:0px 30px 40px 0px">
+		 				<img src=images/class_change_sig_percent-abs.svg>
+						<p style="font-size:70%;color:#000">Dawson <i>et al</i>. 2016. <i>Quat. Sci. Rev.</i>; Dawson <i>et al</i>. <i>in prep</i>.</p>
+		 			</section>
+		 			<section id="matthes">
+		 				<div class="container">
+							<div class="col" style="margin-left:20px;text-align:left;">
+								<br><br>
+								<h1>Model Interrogation</h1>
+								<ul style="font-size:90%">
+									<li>Poor initial PFT-climate fit</li>
+									<li>Evergreen taxa no better than random</li>
+									<li>Leads to errors in simulated albedo, net primary productivity, and transpiration</li>
+							</div>
+							<div class="col" style="margin-left:20px">
+		 				<img src="images/jgrg20540-fig-0003.png" height=450>
+		 				<p style="font-size:70%">Matthes <i>et al</i>., 2016. <i>J Geophys Res</i>.</p>
+		 				</div>
+		 			</section>
+		 			<section>
+		 				<img src="images/paleon_circle.svg" style="width: 90%;">
+		 			</section>
+		 		</section>
+				<section id=earthcube-sect>
+					<section>
+						<img src="images/logo_earthcube_full_horizontal.png"/>
+						<aside class="notes">
+						EarthCube was initiated by the National Science Foundation (NSF) in 2011, providing the fist block of funding in 2013. EarthCube aims to transform geoscience research by developing cyberinfrastructure to improve access, sharing, visualization, and analysis of all forms of geosciences data and related resources. As a community-governed effort, EarthCube's goal is to enable geoscientists to tackle the challenges of understanding and predicting a complex and evolving solid Earth, hydrosphere, atmosphere, and space environment systems. The NSF's Directorate for Geosciences (GEO) and the Division of Advanced Cyberinfrastructure (ACI) partnered to sponsor EarthCube, which NSF anticipates supporting through 2022.</aside>
+					</section>
+					<section>
+						<h2>EarthCube Award Focus</h2>
+						<ul id="buttons">
+							<li>Community Curated Databases</li>
+							<li>Dark Data Recovery</li>
+							<li>Real-time Streaming</li>
+							<li>Data Connectivity</li>
+							<li>Data Description</li>
+							<li>Data Representation</li>
+							<li>Reproducibility</li>
+						</ul>
+					</section>
+					<section id="network">
+						<h2>A System of Systems</h2>
+						<img src=images/ECNetwork.svg class="stretch" style="filter: drop-shadow( 1px 1px 3px #000 );">
+					</section>
+					<section>
+						<h1>StraboSpot</h1>
+						<p>J. Douglas Walker (KU), Carson Rufledt (KU), Emily Bunse (KU),  Basil Tikoff (Wisconsin), Julie Newman (TAMU), Jessica Good Novak (KU),  Jason Ash (KU), Z.D. Michels (Wisconsin), Joseph E. Andrew (KU), Randolph T. Williams (Wisconsin), Andreas Moeller (KU),  Maureen Kahn (Wisconsin). Stephen M. Richard (Columbia), Ryan Clark (MapBox), Workshop Participants, KU field camp students, field trip participants.  Many more . . .</p>
+						<img src="images/Strabo_Logo.png">
+					</section>
+					<section>
+						<img src="images/strabo_spot.png">
+					</section>
+					<section>
+						<h1>Flyover Country</h1>
+						<img src="images/FlyoverCountry.svg">
+					</section>
+					<section>
+						<iframe data-src="http://fcgi.github.io/FC1/www/index.html#/app/map" class="stretch"></iframe>
+					</section>
+					<section id="gdd">
+						<img src="images/gdd_sheet.png" class="stretch">
+					</section>
+					<section>
+						<img src="images/README_diagram.png" height=150px><br>
+						<p style="text-align:left;"><b style="color:white">Regular Expression Searches:</b>
+						<p style="text-align:left;"><code>[\\{,]([-]?[1]?[0-9]{1,2}?)(?:(?:,[°◦o],)|(?:[O])|(?:,`{2},))([1]?[0-9]{1,2}(?:.[0-9]*)),[′'`]?[,]?([[0-9]{0,2}]?)[\"]?[,]?([NESWnesw]?),</code><br>
+						<p  style="text-align:left"><b style="color:white">GeoDeepDive Output:</b><code>
+						{Quaternary Research 58 , 130 -- 138 ( 2002 ) doi :10.1006 / qres .2002.2353 Paleoenvironmental Changes in the Semiarid Coast of Chile ( ∼ 32 ◦ S ) during the Last 6200 cal Years Inferred from a Swamp -- Forest Pollen Record Antonio Maldonado1 and Carolina Villagra ´ n Laboratorio de Palinolog ´ ıa , Departamento de Biolog ´ ıa , Facultad de Ciencias , Universidad de Chile , Casilla 653 , Santiago , Chile E-mail : amaldona@icaro.dic.uchile.cl Received October 3 , 2001 ; published online August 22 , 2002 Pollen analysis of two sediment records from a coastal swamp forest site in the Chilean semiarid region ( <b style="color:red">31 ◦ 50 S ; 71 ◦ 28 W</b> ) shows an alternation of dry and wet phases during the past ∼ 6100 cal yr B.P. .}</code><br>
+					</section>
+					<section>
+						<img src="images/geodeepdive-nlp.png">
+						<p style="text-align:right"><a href=https://eos.org/project-updates/a-new-tool-for-deep-down-data-mining>Shanan E. Peters <i>et al</i>., 2017. <i>EOS</i></a></p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Improving Geochronology</h1>
+					</section>
+					<section data-background-image="images/Hutton_Unconformity.jpg">
+						<div style="background: rgba(109, 121, 115, 0.8) ; box-shadow:  2px 2px #3F3931;padding:3px">
+							<p style="font-size:2em;text-align:left;color:white">"Time lies at the heart of the Earth sciences; every significant advance in geochronology has produced a paradigm-shifting breakthrough in our understanding of Earth history."</p>
+						<p style="text-align:right;color:white">Harrison et al. 2015</p>
+
+						<p style="text-align:left;color:white">T. M. Harrison, S.L. Baldwin, M. Caffee, G. E. Gehrels, B. Schoene, D. L. Shuster, and B. S. Singer (2015) It’s about time: Opportunities and challenges for U.S. Geochronology. <i>Institute of Geophysics and Planetary Physics Publication 6539</i>, University of California, Los Angeles, 56 pp.
+							<p style="text-align:right;font-size:0.8em;">Image Attribution: <a href=https://commons.wikimedia.org/wiki/File:Hutton%27s_Unconformity_(7974454926).jpg>marsupium photography</a>
+						</div>
+					</section>
+					<section>
+						<h2>Discontinuities Exist In Scale</h2>
+						<object>
+							<img src=images/discontinuous_scale.svg>
+						</object>
+					</section>
+					<section id="legacy">
+						<h2>. . . As Legacies</h2>
+						<object>
+							<img src=images/discontinuous_legacy.svg>
+						</object>
+					</section>
+					<section id="lead">
+						<img src=images/rebuilt_models.svg height=300px>
+						<img src=images/lead_dates.svg height=300px>
+						<p style="text-align:right">Goring, Dawson et al. <i>in prep</i>
+					</section>
+					<section data-background="#E7BAA0">
+						<h2 style="color:#3F3931; text-shadow: 2px 2px #E5DACE;">
+							Reproducibility
+						</h2>
+						<ul style="color:#6D7973; text-shadow: 2px 2px #E5DACE;font-size:2rem;">
+							<li>Better chronology integration from lab to publication</li>
+							<li>Long term data sustainability</li>
+						</ul>
+						<br>
+							<div style="background: rgba(109, 121, 115, 0.8) ; box-shadow:  2px 2px #3F3931;">
+							<img src=images/geocron_connect.svg height=400px>
+						</div>
+					</section>
+
+					<section>
+						<h2>And Across Disciplines</h2>
+						<object>
+							<img src=images/discontinuous_discipline.svg>
+						</object>
+					</section>
+					<section data-background="#E7BAA0" id="discovery">
+						<h2 style="color:#3F3931; text-shadow: 2px 2px #E5DACE;">
+							Data Discovery</h2>
+						<ul style="color:#6D7973; text-shadow: 2px 2px #E5DACE;font-size:2rem;">
+							<li>Broader cross-domain discovery
+							<li>Building strength & sustainability across resources
+						</ul><br>
+							<div style="background: rgba(109, 121, 115, 0.8) ; box-shadow:  2px 2px #3F3931;">
+							<img src=images/paths_of_tephra.svg height=400px>
+							<img src=images/throughput_square.svg height=120px>
+						</div>
+					</section>
+					<section data-background="#E7BAA0" id="standards-discovery">
+						<h2 style="color:#3F3931; text-shadow: 2px 2px #E5DACE;">
+							Standards Discovery & Alignment</h2>
+						<ul style="color:#6D7973; text-shadow: 2px 2px #E5DACE;font-size:2rem;">
+							<li>Improved metadata generation & management</li>
+							<li>Allowing cross-repository discovery</li>
+						</ul><br><br>
+						<div style="background: rgba(109, 121, 115, 0.8) ; box-shadow:  2px 2px #3F3931;">
+							<img src=images/ER_orange_high-res.jpg height=120px>
+							<img src=images/throughput_square.svg height=120px>
+						</div>
+					</section>
+					<section data-background-iframe=http://www.earthlifeconsortium.org/api_v1/ui/ id="elc" data-background-color="#E5DACE">
+					</section>
+				</section>
+				<section>
+					<section id="entropy">
+						<h1>Motivation</h1>
+						<h2>→ <b>Information entropy</b> ←</h2>
+						<img src=images/michner_entropy.svg height=400em><br>
+					</section>
+					<section id='email'>
+						<h3>User question:</h3>
+						<pre>
+							A few of the calibrated chronologies have duplicate ages, for example Tower Lake:
+
+							> A <- get_download(13047)
+							> A[[1]]$chronologies$PalEON
+
+							There is an entry for age 7091 ybp twice.
+						</pre>
+						<h3>Expert response:</h3>
+						<pre style="color:#000D10">
+							Hi XXXXXXXXX, thanks for getting in touch.  In that case the result is fine, but I found an error in one of the other records that I've now corrected.  The reason for the duplicate there is that the author counted multiple samples from the same depth.
+						</pre>
+					</section>
+					<section>
+						<h1>Science is Cultural</h1>
+						<img src=images/noun_21051.svg height=400em>
+					</section>
+					<section>
+						<h1>But Data is Shared</h1>
+						<img src=images/problems_circle_data.svg height=400em>
+					</section>
+					<section>
+						<img src="images/package_graph.svg" height=500em style="opacity:0.4">
+						<div style="position:absolute;top:20px;">
+							<h1>Annotation Engine</h1>
+						</div>
+						<p style="text-align:right">Daisie Huang - Data Dryad<br>Simon Goring - UWisconsin</p>
+					</section>
+					<section data-background="#B2B2A2" id="annotations">
+						<h1>Annotations as Objects</h1>
+						<div style="background:#E5DACE">
+							<img src=images/annotation_system.svg height=400em>
+						</div>
+					</section>
+					<section>
+						<h1>Features</h1>
+						<h2>W3C Annotations using <i>neo4j</i></h2>
+						<img src=images/package_graph.svg height=300em><br>
+						rOpenSci Packages linked to GitHub Repositories
+					</section>
+					<section>
+						<h1>Features</h1>
+						<h2 style="font-size:1.5em">OAuth2 management using ORCiD; API First Design</h2>
+						<img src="images/Throughput_pattern.svg" height=400em>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>21<sup>st</sup> Century Geosciences</h1>
+						<p>Answering big questions in new ways
+						<p>Supporting researchers through services, data guarantees & technical support
+						<p>Improving outreach & equity in the geosciences
+					</section>
+				</section>
 			</div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
+		<script src="js/d3.js"></script> 
 
 		<script>
 			// More info about config & dependencies:
@@ -45,5 +426,73 @@
 				]
 			});
 		</script>
+		<script>
+			var width = 960,
+				height = 500,
+				json = {"nodes":[
+				  {"x":100, "r":20, "label":"Node 1", "color": "red"}, 
+				  {"x":200, "r":25, "label":"Node 2", "color": "blue"}, 
+				  {"x":300, "r":30, "label":"Node 3", "color": "green"}
+				]};
+				 
+			var svg = d3.select("#d3plot").append("svg")
+			    .attr("width", width)
+			    .attr("height", height)
+
+			svg.append("defs")
+			      .append("pattern")
+			      .attr({
+			        "id": "stripes",
+			        "width": "8",
+			        "height": "8",
+			        "fill": "red"
+			      })
+			    .append("rect")
+			      .attr({
+			        "width": "4",
+			        "height": "8",
+			        "transform": "translate(0,0)",
+			        "fill": "grey"
+			      });					
+
+			function plotChart(json) {
+			    /* Define the data for the circles */
+			    var elem = svg.selectAll("g myCircleText")
+			        .data(json.nodes)
+			  
+			    /*Create and place the "blocks" containing the circle and the text */  
+			    var elemEnter = elem.enter()
+				    .append("g")
+			      .attr("class", "node-group")
+				    .attr("transform", function(d){return "translate("+d.x+",80)"})
+			 
+			    /*Create the circle for each block */
+			    var circleInner = elemEnter.append("circle")
+				    .attr("r", function(d){return d.r} )
+				    .attr("stroke", function(d) {return d.color;})
+				    .attr("fill", function(d) {return d.color;});
+			 
+			      var circleOuter = elemEnter.append("circle")
+				    .attr("r", function(d){return d.r} )
+				    .attr("stroke",function(d) {return d.color;})
+				    .attr("fill", "url(#stripes)");
+			  
+			    /* Create the text for each block */
+			    elemEnter.append("text")
+				    .text(function(d){return d.label})
+			    .attr({
+			      "text-anchor": "middle",
+			      "font-size": function(d) { 
+			        return d.r/((d.r*10)/100);
+			        },
+			      "dy": function(d) {
+			        return d.r/((d.r*25)/100);
+			      }
+			    });
+			};
+
+			plotChart(json);
+		</script>
+
 	</body>
 </html>
