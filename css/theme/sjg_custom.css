@@ -347,6 +347,11 @@ body {
   -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
 
+#buttons ul {
+  display: table-row;
+  vertical-align:middle;
+}
+
 #buttons li {
   float: left;
   list-style: none;
@@ -355,11 +360,11 @@ body {
   margin-right: 30px;
   width: 49%;
   font-size:1.3rem;
-  padding: 3px;
   margin: 0 3px 3px 0;
   height:75px;
-  vertical-align: middle;
-  display: table-cell;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #buttons li:hover {
